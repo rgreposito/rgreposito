@@ -1,4 +1,4 @@
-### Raffaele Esposito
+### Raffaele Giove
 
 VP of Engineering / Principal Engineer. I build engineering organisations and
 the systems they run on — lately with a focus on putting AI agents into

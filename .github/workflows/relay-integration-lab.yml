@@ -1,0 +1,30 @@
+name: relay integration lab checks
+on:
+  push:
+    paths:
+      - "relay-integration-lab/**"
+      - ".github/workflows/relay-integration-lab.yml"
+  pull_request:
+    paths:
+      - "relay-integration-lab/**"
+      - ".github/workflows/relay-integration-lab.yml"
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile and test
+        working-directory: relay-integration-lab
+        run: |
+          python -m compileall -q src tests
+          PYTHONPATH=src python -m unittest discover -s tests -v
+          PYTHONPATH=src python -m relay_lab
